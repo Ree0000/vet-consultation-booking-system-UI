@@ -1,0 +1,35 @@
+{
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}! 👋",
+    "subtitle": "Let's take care of your pets today",
+
+    "stats": {
+      "upcoming": "Upcoming Appointments",
+      "pets": "Registered Pets",
+      "completed": "Completed Visits"
+    },
+
+    "quickActions": "Quick Actions",
+
+    "actions": {
+      "book": {
+        "title": "Book Appointment",
+        "desc": "Schedule a checkup"
+      },
+      "addPet": {
+        "title": "Add New Pet",
+        "desc": "Register your pet"
+      }
+    },
+
+    "appointments": {
+      "title": "Upcoming Appointments",
+      "viewAll": "View All",
+      "empty": "No upcoming appointments",
+      "first": "Book Your First Appointment",
+      "checkup": "General Checkup",
+      "doctor": "Dr."
+    }
+  }
+}
+
