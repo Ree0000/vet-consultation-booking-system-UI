@@ -101,9 +101,9 @@ const Dashboard = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">
-              Welcome back, {user?.name}! 👋
+              Selamat datang kembali, {user?.name}! 👋
             </h1>
-            <p className="text-gray-500">Let's take care of your pets today</p>
+            <p className="text-gray-500">Mari kita rawat hewan peliharaanmu hari ini</p>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@ const Dashboard = () => {
             <Calendar size={28} />
             <span className="text-4xl font-bold">{stats.upcoming}</span>
           </div>
-          <p className="text-blue-100 text-sm">Upcoming Appointments</p>
+          <p className="text-blue-100 text-sm">Janji Temu Mendatang</p>
         </div>
 
         <div className="bg-gradient-to-br from-cyan-400 to-blue-400 rounded-2xl p-6 text-white">
@@ -123,7 +123,7 @@ const Dashboard = () => {
             <PawPrint size={28} />
             <span className="text-4xl font-bold">{stats.total}</span>
           </div>
-          <p className="text-cyan-100 text-sm">Registered Pets</p>
+          <p className="text-cyan-100 text-sm">Hewan Terdaftar</p>
         </div>
 
         <div className="bg-gradient-to-br from-amber-400 to-orange-400 rounded-2xl p-6 text-white">
@@ -131,13 +131,13 @@ const Dashboard = () => {
             <CheckCircle size={28} />
             <span className="text-4xl font-bold">{stats.completed}</span>
           </div>
-          <p className="text-amber-100 text-sm">Completed Visits</p>
+          <p className="text-amber-100 text-sm">Kunjungan Selesai</p>
         </div>
       </div>
 
       {/* Quick Actions */}
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Aksi Cepat</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             to="/appointments/new"
@@ -147,8 +147,8 @@ const Dashboard = () => {
               <Calendar size={24} className="text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-800">Book Appointment</h3>
-              <p className="text-sm text-gray-500">Schedule a checkup</p>
+              <h3 className="font-semibold text-gray-800">Buat Janji Temu</h3>
+              <p className="text-sm text-gray-500">Jadwalkan pemeriksaan</p>
             </div>
             <ChevronRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
           </Link>
@@ -161,8 +161,8 @@ const Dashboard = () => {
               <PawPrint size={24} className="text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-800">Add New Pet</h3>
-              <p className="text-sm text-gray-500">Register your pet</p>
+              <h3 className="font-semibold text-gray-800">Tambah Hewan Baru</h3>
+              <p className="text-sm text-gray-500">Daftarkan hewan peliharaanmu</p>
             </div>
             <ChevronRight size={20} className="text-gray-400 group-hover:text-cyan-500 transition-colors" />
           </Link>
@@ -172,25 +172,25 @@ const Dashboard = () => {
       {/* Upcoming Appointments */}
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-800">Upcoming Appointments</h2>
+          <h2 className="text-xl font-bold text-gray-800">Janji Temu Mendatang</h2>
           <Link
             to="/appointments"
             className="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors"
           >
-            View All
+            Lihat Semua
           </Link>
         </div>
 
         {appointments.length === 0 ? (
           <div className="text-center py-12">
             <Calendar size={48} className="text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 mb-4">No upcoming appointments</p>
+            <p className="text-gray-500 mb-4">Belum ada janji temu mendatang</p>
             <Link
               to="/appointments/new"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all"
             >
               <Plus size={20} />
-              Book Your First Appointment
+              Buat Janji Temu Pertama
             </Link>
           </div>
         ) : (
@@ -206,7 +206,7 @@ const Dashboard = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-gray-800 truncate">
-                    {appointment.pet.name} - General Checkup
+                    {appointment.pet.name} - Pemeriksaan Umum
                   </h3>
                   <p className="text-sm text-gray-600">Dr. {appointment.vet.name}</p>
                   <div className="flex items-center gap-3 mt-1 text-sm">
@@ -220,7 +220,10 @@ const Dashboard = () => {
                     </span>
                   </div>
                 </div>
-                <ChevronRight size={20} className="text-gray-400 group-hover:text-blue-500 transition-colors flex-shrink-0" />
+                <ChevronRight
+                  size={20}
+                  className="text-gray-400 group-hover:text-blue-500 transition-colors flex-shrink-0"
+                />
               </Link>
             ))}
           </div>
