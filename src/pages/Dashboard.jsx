@@ -30,13 +30,11 @@ const Dashboard = () => {
       const allAppointments = appointmentsRes.data.data.appointments;
       setPets(petsRes.data.data.pets);
 
-      // Filter upcoming appointments (including today but check time)
       const now = new Date();
       const upcoming = allAppointments.filter((apt) => {
         const aptDate = new Date(apt.appointmentDate);
         const [hours, minutes] = apt.appointmentTime.split(':').map(Number);
 
-        // Create full datetime for comparison
         const aptDateTime = new Date(
           aptDate.getFullYear(),
           aptDate.getMonth(),
@@ -48,9 +46,8 @@ const Dashboard = () => {
         return aptDateTime >= now && apt.status === 'scheduled';
       });
 
-      setAppointments(upcoming.slice(0, 3)); // Show only 3 upcoming
+      setAppointments(upcoming.slice(0, 3));
 
-      // Calculate stats
       setStats({
         upcoming: upcoming.length,
         total: petsRes.data.data.pets.length,
@@ -59,7 +56,7 @@ const Dashboard = () => {
 
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Terjadi kesalahan saat mengambil data:', error);
       setLoading(false);
     }
   };
@@ -70,17 +67,20 @@ const Dashboard = () => {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    // Reset time parts for accurate date comparison
     const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     const tomorrowOnly = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
 
     if (dateOnly.getTime() === todayOnly.getTime()) {
-      return 'Today';
+      return 'Hari Ini';
     } else if (dateOnly.getTime() === tomorrowOnly.getTime()) {
-      return 'Tomorrow';
+      return 'Besok';
     } else {
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return date.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      });
     }
   };
 
@@ -88,7 +88,7 @@ const Dashboard = () => {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading dashboard...</div>
+          <div className="text-blue-600 text-xl">Memuat dashboard...</div>
         </div>
       </Layout>
     );
