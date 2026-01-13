@@ -17,8 +17,8 @@ const Layout = ({ children }) => {
 
   const navItems = [
     { path: '/dashboard', icon: Home, label: 'Dashboard' },
-    { path: '/appointments', icon: Calendar, label: 'Appointments' },
-    { path: '/pets', icon: PawPrint, label: 'My Pets' },
+    { path: '/appointments', icon: Calendar, label: 'Pertemuan' },
+    { path: '/pets', icon: PawPrint, label: 'Hewan Peliharaan' },
     { path: '/settings', icon: Settings, label: 'Settings' },
   ];
 
@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
                 <Heart size={22} className="text-white" fill="white" />
               </div>
-              <span className="text-xl font-bold text-gray-800">PawCare Vet</span>
+              <span className="text-xl font-bold text-gray-800">Urban Animal</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -66,7 +66,7 @@ const Layout = ({ children }) => {
                 className="hidden md:flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors rounded-xl hover:bg-gray-50"
               >
                 <LogOut size={18} />
-                <span>Logout</span>
+                <span>Keluar</span>
               </button>
 
               {/* Mobile Menu Button */}
@@ -106,7 +106,7 @@ const Layout = ({ children }) => {
                 className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-xl transition-colors"
               >
                 <LogOut size={20} />
-                <span>Logout</span>
+                <span>Keluar</span>
               </button>
             </div>
           </div>

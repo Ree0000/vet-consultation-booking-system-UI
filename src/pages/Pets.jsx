@@ -20,46 +20,48 @@ const Pets = () => {
       setPets(response.data.data.pets);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching pets:', error);
-      showToast('Failed to load pets', 'error');
+      console.error('Terjadi kesalahan saat mengambil data hewan:', error);
+      showToast('Gagal memuat data hewan', 'error');
       setLoading(false);
     }
   };
 
   const handleDeletePet = async (id, name) => {
-    if (!window.confirm(`Are you sure you want to remove ${name}? This will also cancel all associated appointments.`)) {
+    if (
+      !window.confirm(
+        `Apakah Anda yakin ingin menghapus ${name}? Tindakan ini juga akan membatalkan semua janji temu yang terkait.`
+      )
+    ) {
       return;
     }
 
     setDeletingId(id);
     try {
       await petsAPI.delete(id);
-      showToast(`${name} has been removed successfully`, 'success');
+      showToast(`${name} berhasil dihapus`, 'success');
       fetchPets();
     } catch (error) {
-      console.error('Error deleting pet:', error);
-      showToast('Failed to delete pet', 'error');
+      console.error('Terjadi kesalahan saat menghapus hewan:', error);
+      showToast('Gagal menghapus hewan', 'error');
     }
     setDeletingId(null);
   };
 
   const getPetIcon = (species) => {
     const icons = {
-      dog: '🐕',
-      cat: '🐈',
-      rabbit: '🐰',
-      bird: '🐦',
+      anjing: '🐕',
+      kucing: '🐈',
+      kelinci: '🐰',
+      burung: '🐦',
       hamster: '🐹',
-      fish: '🐠',
-      turtle: '🐢',
-      snake: '🐍',
-      lizard: '🦎',
-      horse: '🐴',
+      ikan: '🐠',
+      ular: '🐍',
+      kadal: '🦎',
+      kuda: '🐴',
       guinea: '🐹',
-      ferret: '🦡',
+      musang: '🦡',
     };
 
-    // Try to match species to emoji, fallback to generic paw
     const speciesLower = species.toLowerCase();
     for (const [key, emoji] of Object.entries(icons)) {
       if (speciesLower.includes(key)) {
@@ -73,7 +75,7 @@ const Pets = () => {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading pets...</div>
+          <div className="text-blue-600 text-xl">Memuat data hewan...</div>
         </div>
       </Layout>
     );
@@ -85,15 +87,19 @@ const Pets = () => {
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">My Pets</h1>
-            <p className="text-gray-500">Manage your furry family members</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">
+              Hewan Peliharaan Saya
+            </h1>
+            <p className="text-gray-500">
+              Kelola hewan peliharaan kesayangan Anda
+            </p>
           </div>
           <Link
             to="/pets/new"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all"
           >
             <Plus size={20} />
-            <span>Add New Pet</span>
+            <span>Tambah Hewan Baru</span>
           </Link>
         </div>
       </div>
@@ -102,16 +108,18 @@ const Pets = () => {
       {pets.length === 0 ? (
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
           <PawPrint size={64} className="text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No pets added yet</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            Belum ada hewan yang ditambahkan
+          </h3>
           <p className="text-gray-500 mb-6">
-            Add your first pet to start booking appointments
+            Tambahkan hewan peliharaan pertama Anda untuk mulai membuat janji temu
           </p>
           <Link
             to="/pets/new"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all"
           >
             <Plus size={20} />
-            Add Your First Pet
+            Tambah Hewan Pertama
           </Link>
         </div>
       ) : (
@@ -128,8 +136,12 @@ const Pets = () => {
                     {getPetIcon(pet.species)}
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-800 text-lg">{pet.name}</h3>
-                    <p className="text-sm text-gray-500 capitalize">{pet.species}</p>
+                    <h3 className="font-bold text-gray-800 text-lg">
+                      {pet.name}
+                    </h3>
+                    <p className="text-sm text-gray-500 capitalize">
+                      {pet.species}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -138,20 +150,27 @@ const Pets = () => {
               <div className="space-y-2 mb-4 pb-4 border-b border-gray-100">
                 {pet.breed && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Breed:</span>
-                    <span className="font-medium text-gray-800">{pet.breed}</span>
+                    <span className="text-gray-500">Ras:</span>
+                    <span className="font-medium text-gray-800">
+                      {pet.breed}
+                    </span>
                   </div>
                 )}
                 {pet.age && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Age:</span>
-                    <span className="font-medium text-gray-800">{pet.age} years old</span>
+                    <span className="text-gray-500">Usia:</span>
+                    <span className="font-medium text-gray-800">
+                      {pet.age} tahun
+                    </span>
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Added:</span>
+                  <span className="text-gray-500">Ditambahkan:</span>
                   <span className="font-medium text-gray-800">
-                    {new Date(pet.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    {new Date(pet.createdAt).toLocaleDateString('id-ID', {
+                      month: 'short',
+                      year: 'numeric',
+                    })}
                   </span>
                 </div>
               </div>
@@ -171,7 +190,7 @@ const Pets = () => {
                   className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-red-600 text-sm font-medium hover:bg-red-50 transition-colors disabled:opacity-50"
                 >
                   <Trash2 size={16} />
-                  {deletingId === pet.id ? 'Deleting...' : 'Delete'}
+                  {deletingId === pet.id ? 'Menghapus...' : 'Hapus'}
                 </button>
               </div>
             </div>

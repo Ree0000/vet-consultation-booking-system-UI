@@ -28,7 +28,7 @@ const AdminAppointments = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching appointments:', error);
-      showToast('Failed to load appointments', 'error');
+      showToast('Gagal memuat janji temu', 'error');
       setLoading(false);
     }
   };
@@ -36,12 +36,12 @@ const AdminAppointments = () => {
   const filterAppointments = () => {
     let filtered = [...appointments];
 
-    // Status filter
+    // Filter status
     if (statusFilter !== 'all') {
       filtered = filtered.filter(apt => apt.status === statusFilter);
     }
 
-    // Date filter
+    // Filter tanggal
     if (dateFilter) {
       filtered = filtered.filter(apt => {
         const aptDate = new Date(apt.appointmentDate).toISOString().split('T')[0];
@@ -49,7 +49,7 @@ const AdminAppointments = () => {
       });
     }
 
-    // Search filter
+    // Filter pencarian
     if (searchTerm) {
       const search = searchTerm.toLowerCase();
       filtered = filtered.filter(apt =>
@@ -63,18 +63,24 @@ const AdminAppointments = () => {
   };
 
   const handleStatusUpdate = async (id, newStatus) => {
-    if (!window.confirm(`Are you sure you want to mark this appointment as ${newStatus}?`)) {
+    const statusMessages = {
+      'completed': 'selesai',
+      'no-show': 'tidak hadir',
+      'cancelled': 'dibatalkan'
+    };
+
+    if (!window.confirm(`Apakah Anda yakin ingin menandai janji temu ini sebagai ${statusMessages[newStatus]}?`)) {
       return;
     }
 
     setUpdatingId(id);
     try {
       await adminAppointmentsAPI.updateStatus(id, newStatus);
-      showToast(`Appointment marked as ${newStatus}`, 'success');
+      showToast(`Janji temu ditandai sebagai ${statusMessages[newStatus]}`, 'success');
       fetchAppointments();
     } catch (error) {
       console.error('Error updating status:', error);
-      showToast('Failed to update appointment status', 'error');
+      showToast('Gagal memperbarui status janji temu', 'error');
     }
     setUpdatingId(null);
   };
@@ -88,10 +94,10 @@ const AdminAppointments = () => {
     };
 
     const labels = {
-      scheduled: 'Scheduled',
-      completed: 'Completed',
-      cancelled: 'Cancelled',
-      'no-show': 'No-Show',
+      scheduled: 'Terjadwal',
+      completed: 'Selesai',
+      cancelled: 'Dibatalkan',
+      'no-show': 'Tidak Hadir',
     };
 
     return (
@@ -102,7 +108,7 @@ const AdminAppointments = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('id-ID', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
@@ -114,7 +120,7 @@ const AdminAppointments = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading appointments...</div>
+          <div className="text-blue-600 text-xl">Memuat janji temu...</div>
         </div>
       </AdminLayout>
     );
@@ -124,23 +130,23 @@ const AdminAppointments = () => {
     <AdminLayout>
       {/* Header */}
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Appointments Management</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Manajemen Janji Temu</h1>
 
-        {/* Filters */}
+        {/* Filter */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Search */}
+          {/* Pencarian */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
-              placeholder="Search by name, pet, email..."
+              placeholder="Cari berdasarkan nama, hewan, email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
             />
           </div>
 
-          {/* Date Filter */}
+          {/* Filter Tanggal */}
           <div className="relative">
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
@@ -151,7 +157,7 @@ const AdminAppointments = () => {
             />
           </div>
 
-          {/* Status Filter */}
+          {/* Filter Status */}
           <div className="relative">
             <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <select
@@ -159,27 +165,27 @@ const AdminAppointments = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none appearance-none"
             >
-              <option value="all">All Status</option>
-              <option value="scheduled">Scheduled</option>
-              <option value="completed">Completed</option>
-              <option value="no-show">No-Show</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="all">Semua Status</option>
+              <option value="scheduled">Terjadwal</option>
+              <option value="completed">Selesai</option>
+              <option value="no-show">Tidak Hadir</option>
+              <option value="cancelled">Dibatalkan</option>
             </select>
           </div>
         </div>
 
-        {/* Results Count */}
+        {/* Jumlah Hasil */}
         <div className="mt-4 text-sm text-gray-600">
-          Showing {filteredAppointments.length} of {appointments.length} appointments
+          Menampilkan {filteredAppointments.length} dari {appointments.length} janji temu
         </div>
       </div>
 
-      {/* Appointments List */}
+      {/* Daftar Janji Temu */}
       {filteredAppointments.length === 0 ? (
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
           <Calendar size={64} className="text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No appointments found</h3>
-          <p className="text-gray-500">Try adjusting your filters</p>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Tidak ada janji temu ditemukan</h3>
+          <p className="text-gray-500">Coba sesuaikan filter Anda</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -189,7 +195,7 @@ const AdminAppointments = () => {
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex flex-col lg:flex-row gap-6">
-                {/* Pet & User Info */}
+                {/* Info Hewan & Pengguna */}
                 <div className="flex-1">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -198,7 +204,7 @@ const AdminAppointments = () => {
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-2 mb-1">
                         <h3 className="font-bold text-gray-800 text-lg">
-                          {appointment.pet.name} - General Checkup
+                          {appointment.pet.name} - Pemeriksaan Umum
                         </h3>
                         {getStatusBadge(appointment.status)}
                       </div>
@@ -224,17 +230,17 @@ const AdminAppointments = () => {
                       </div>
                       {appointment.reason && (
                         <p className="text-sm text-gray-600 mt-2">
-                          <span className="font-medium">Reason:</span> {appointment.reason}
+                          <span className="font-medium">Alasan:</span> {appointment.reason}
                         </p>
                       )}
                       <p className="text-sm text-gray-600 mt-1">
-                        <span className="font-medium">Vet:</span> Dr. {appointment.vet.name}
+                        <span className="font-medium">Dokter Hewan:</span> Dr. {appointment.vet.name}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Actions */}
+                {/* Aksi */}
                 {appointment.status === 'scheduled' && (
                   <div className="flex flex-col gap-2 lg:w-48">
                     <button
@@ -243,7 +249,7 @@ const AdminAppointments = () => {
                       className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-green-50 text-green-600 text-sm font-medium hover:bg-green-100 transition-colors disabled:opacity-50"
                     >
                       <CheckCircle size={16} />
-                      {updatingId === appointment.id ? 'Updating...' : 'Completed'}
+                      {updatingId === appointment.id ? 'Memperbarui...' : 'Selesai'}
                     </button>
                     <button
                       onClick={() => handleStatusUpdate(appointment.id, 'no-show')}
@@ -251,7 +257,7 @@ const AdminAppointments = () => {
                       className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-red-50 text-red-600 text-sm font-medium hover:bg-red-100 transition-colors disabled:opacity-50"
                     >
                       <XCircle size={16} />
-                      No-Show
+                      Tidak Hadir
                     </button>
                     <button
                       onClick={() => handleStatusUpdate(appointment.id, 'cancelled')}
@@ -259,7 +265,7 @@ const AdminAppointments = () => {
                       className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gray-50 text-gray-600 text-sm font-medium hover:bg-gray-100 transition-colors disabled:opacity-50"
                     >
                       <Ban size={16} />
-                      Cancel
+                      Batalkan
                     </button>
                   </div>
                 )}

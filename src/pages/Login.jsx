@@ -18,7 +18,7 @@ const Login = () => {
     phone: '',
   });
 
-  // Redirect if already logged in
+  // Redirect jika sudah login
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;
   }
@@ -38,9 +38,9 @@ const Login = () => {
       });
 
       if (result.success) {
-        showToast('Login successful! Welcome back.', 'success');
+        showToast('Login berhasil! Selamat datang kembali.', 'success');
 
-        // Redirect based on role
+        // Redirect berdasarkan peran
         if (result.role === 'admin') {
           navigate('/admin/dashboard');
         } else {
@@ -53,7 +53,7 @@ const Login = () => {
       const result = await register(formData);
 
       if (result.success) {
-        showToast('Account created successfully! Welcome to PawCare.', 'success');
+        showToast('Akun berhasil dibuat! Selamat datang di PawCare.', 'success');
         navigate('/dashboard');
       } else {
         showToast(result.error, 'error');
@@ -78,19 +78,19 @@ const Login = () => {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl mb-4 shadow-lg">
               <Heart size={40} className="text-white" fill="white" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">PawCare Vet</h1>
-            <p className="text-gray-500">Care for your furry family members</p>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">Klinik Urban Animal</h1>
+            <p className="text-gray-500">Perawatan untuk hewan peliharaan kesayangan Anda</p>
           </div>
 
-          {/* Form Card */}
+          {/* Kartu Formulir */}
           <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8">
-            {/* Toggle Buttons */}
+            {/* Tombol Toggle */}
             <div className="flex gap-2 mb-6">
               <button
                 onClick={() => isLoginMode || toggleMode()}
                 className={`flex-1 py-3 px-4 rounded-2xl font-medium transition-all ${isLoginMode
-                    ? 'bg-blue-500 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-blue-500 text-white shadow-sm'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
               >
                 Login
@@ -98,20 +98,20 @@ const Login = () => {
               <button
                 onClick={() => !isLoginMode || toggleMode()}
                 className={`flex-1 py-3 px-4 rounded-2xl font-medium transition-all ${!isLoginMode
-                    ? 'bg-blue-500 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-blue-500 text-white shadow-sm'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
               >
-                Register
+                Daftar
               </button>
             </div>
 
-            {/* Form */}
+            {/* Formulir */}
             <div className="space-y-4">
               {!isLoginMode && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name
+                    Nama Lengkap
                   </label>
                   <div className="relative">
                     <User
@@ -144,7 +144,7 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                    placeholder="you@example.com"
+                    placeholder="anda@contoh.com"
                     required
                   />
                 </div>
@@ -152,7 +152,7 @@ const Login = () => {
 
               {!isLoginMode && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Telepon</label>
                   <div className="relative">
                     <Phone
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -164,7 +164,7 @@ const Login = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                      placeholder="+1234567890"
+                      placeholder="+628123456789"
                       required
                     />
                   </div>
@@ -172,7 +172,7 @@ const Login = () => {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Kata Sandi</label>
                 <div className="relative">
                   <Lock
                     className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -203,7 +203,7 @@ const Login = () => {
                     to="/forgot-password"
                     className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
                   >
-                    Forgot Password?
+                    Lupa Kata Sandi?
                   </Link>
                 </div>
               )}
@@ -213,12 +213,11 @@ const Login = () => {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 px-4 rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Please wait...' : isLoginMode ? 'Login to Your Account' : 'Create Account'}
+                {loading ? 'Harap tunggu...' : isLoginMode ? 'Login ke Akun Anda' : 'Buat Akun'}
               </button>
             </div>
           </div>
         </div>
-
       </div>
       <SimpleFooter />
     </div>

@@ -1,15 +1,10 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
-import AdminProtectedRoute from './components/Auth/AdminProtectedRoute';
-import AdminAppointment from './pages/admin/AdminAppointment';
-import AdminVeterinarian from './pages/admin/AdminVeterinarian';
-import AdminUser from './pages/admin/AdminUser';
 import Toast from './components/Layout/Toast';
+import Login from './pages/Login';
 
 // Pages
-import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
@@ -22,6 +17,10 @@ import Settings from './pages/Settings';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProtectedRoute from './components/Auth/AdminProtectedRoute';
+import AdminAppointment from './pages/admin/AdminAppointment';
+import AdminVeterinarian from './pages/admin/AdminVeterinarian';
+import AdminUser from './pages/admin/AdminUser';
 
 function App() {
   return (

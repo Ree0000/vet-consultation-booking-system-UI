@@ -35,7 +35,7 @@ const BookAppointment = () => {
       setPets(response.data.data.pets);
     } catch (error) {
       console.error('Error fetching pets:', error);
-      showToast('Failed to load pets', 'error');
+      showToast('Gagal memuat hewan peliharaan', 'error');
     }
   };
 
@@ -45,7 +45,7 @@ const BookAppointment = () => {
       setAvailableSlots(response.data.data.availableSlots);
     } catch (error) {
       console.error('Error fetching slots:', error);
-      showToast('Failed to load available time slots', 'error');
+      showToast('Gagal memuat slot waktu yang tersedia', 'error');
     }
   };
 
@@ -57,17 +57,17 @@ const BookAppointment = () => {
     switch (step) {
       case 1:
         if (!formData.appointmentDate) {
-          showToast('Please select a date', 'warning');
+          showToast('Harap pilih tanggal', 'warning');
           return false;
         }
         if (!formData.appointmentTime) {
-          showToast('Please select a time slot', 'warning');
+          showToast('Harap pilih slot waktu', 'warning');
           return false;
         }
         return true;
       case 2:
         if (!formData.petId) {
-          showToast('Please select a pet', 'warning');
+          showToast('Harap pilih hewan peliharaan', 'warning');
           return false;
         }
         return true;
@@ -99,15 +99,15 @@ const BookAppointment = () => {
         paymentMethod: formData.paymentMethod,
       });
 
-      showToast('Appointment booked successfully!', 'success');
-      setStep(4); // Show confirmation
+      showToast('Janji temu berhasil dipesan!', 'success');
+      setStep(4); // Tampilkan konfirmasi
 
       setTimeout(() => {
         navigate('/dashboard');
       }, 3000);
     } catch (error) {
       console.error('Error booking appointment:', error);
-      showToast(error.response?.data?.message || 'Failed to book appointment', 'error');
+      showToast(error.response?.data?.message || 'Gagal memesan janji temu', 'error');
     }
     setLoading(false);
   };
@@ -124,12 +124,12 @@ const BookAppointment = () => {
     <Layout>
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8">
-          {/* Progress Steps */}
+          {/* Langkah Progres */}
           <div className="mb-8">
             <div className="flex items-start">
               {[1, 2, 3].map((s, idx) => (
                 <div key={s} className="flex-1 flex flex-col items-center relative">
-                  {/* Step circle */}
+                  {/* Lingkaran langkah */}
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-bold z-10
           ${step >= s ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-400'}`}
@@ -137,7 +137,7 @@ const BookAppointment = () => {
                     {s}
                   </div>
 
-                  {/* Connector line */}
+                  {/* Garis penghubung */}
                   {idx < 2 && (
                     <div
                       className={`absolute top-5 left-1/2 h-1
@@ -151,23 +151,23 @@ const BookAppointment = () => {
                     className={`mt-2 text-xs sm:text-sm text-center
           ${step >= s ? 'text-blue-600 font-medium' : 'text-gray-400'}`}
                   >
-                    {s === 1 && 'Date & Time'}
-                    {s === 2 && 'Pet Info'}
-                    {s === 3 && 'Payment'}
+                    {s === 1 && 'Tanggal & Waktu'}
+                    {s === 2 && 'Info Hewan'}
+                    {s === 3 && 'Pembayaran'}
                   </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Step Content */}
+          {/* Konten Langkah */}
           {step === 1 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Select Date & Time</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Pilih Tanggal & Waktu</h2>
 
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Appointment Date
+                  Tanggal Janji Temu
                 </label>
                 <input
                   type="date"
@@ -181,11 +181,11 @@ const BookAppointment = () => {
               {formData.appointmentDate && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Available Time Slots
+                    Slot Waktu Tersedia
                   </label>
                   {availableSlots.length === 0 ? (
                     <p className="text-gray-500 text-center py-8">
-                      No available slots for this date. Please select another date.
+                      Tidak ada slot tersedia untuk tanggal ini. Harap pilih tanggal lain.
                     </p>
                   ) : (
                     <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
@@ -210,21 +210,21 @@ const BookAppointment = () => {
 
           {step === 2 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Pet Information</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Informasi Hewan Peliharaan</h2>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Select Pet
+                    Pilih Hewan Peliharaan
                   </label>
                   {pets.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-gray-500 mb-4">You haven't added any pets yet.</p>
+                      <p className="text-gray-500 mb-4">Anda belum menambahkan hewan peliharaan.</p>
                       <button
                         onClick={() => navigate('/pets/new')}
                         className="px-6 py-3 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors"
                       >
-                        Add Your First Pet
+                        Tambah Hewan Peliharaan Pertama
                       </button>
                     </div>
                   ) : (
@@ -244,7 +244,7 @@ const BookAppointment = () => {
                           <div className="flex-1">
                             <h3 className="font-semibold text-gray-800">{pet.name}</h3>
                             <p className="text-sm text-gray-600 capitalize">
-                              {pet.species} {pet.breed && `• ${pet.breed}`} {pet.age && `• ${pet.age} years old`}
+                              {pet.species} {pet.breed && `• ${pet.breed}`} {pet.age && `• ${pet.age} tahun`}
                             </p>
                           </div>
                           {formData.petId === pet.id && (
@@ -259,13 +259,13 @@ const BookAppointment = () => {
                 {pets.length > 0 && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Reason for Visit (Optional)
+                      Alasan Kunjungan (Opsional)
                     </label>
                     <textarea
                       rows="4"
                       value={formData.reason}
                       onChange={(e) => handleInputChange('reason', e.target.value)}
-                      placeholder="Describe the reason for your visit..."
+                      placeholder="Jelaskan alasan kunjungan Anda..."
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none resize-none"
                     ></textarea>
                   </div>
@@ -276,7 +276,7 @@ const BookAppointment = () => {
 
           {step === 3 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Payment Method</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Metode Pembayaran</h2>
 
               <div className="space-y-3 mb-8">
                 {/* <button */}
@@ -298,8 +298,8 @@ const BookAppointment = () => {
                 {/*   </div> */}
                 {/*   <CreditCard className="text-gray-600" size={24} /> */}
                 {/*   <div className="flex-1 text-left"> */}
-                {/*     <h3 className="font-semibold text-gray-800">Pay Now Online</h3> */}
-                {/*     <p className="text-sm text-gray-600">Secure payment with credit card</p> */}
+                {/*     <h3 className="font-semibold text-gray-800">Bayar Sekarang Online</h3> */}
+                {/*     <p className="text-sm text-gray-600">Pembayaran aman dengan kartu kredit</p> */}
                 {/*   </div> */}
                 {/* </button> */}
 
@@ -322,20 +322,20 @@ const BookAppointment = () => {
                   </div>
                   <Calendar className="text-gray-600" size={24} />
                   <div className="flex-1 text-left">
-                    <h3 className="font-semibold text-gray-800">Pay at Clinic</h3>
-                    <p className="text-sm text-gray-600">Pay when you arrive for your appointment</p>
+                    <h3 className="font-semibold text-gray-800">Bayar di Klinik</h3>
+                    <p className="text-sm text-gray-600">Bayar saat Anda tiba untuk janji temu</p>
                   </div>
                 </button>
               </div>
 
-              {/* Summary */}
+              {/* Ringkasan */}
               <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
-                <h3 className="font-semibold text-gray-800 mb-4">Booking Summary</h3>
+                <h3 className="font-semibold text-gray-800 mb-4">Ringkasan Pemesanan</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Date:</span>
+                    <span className="text-gray-600">Tanggal:</span>
                     <span className="font-medium text-gray-800">
-                      {new Date(formData.appointmentDate).toLocaleDateString('en-US', {
+                      {new Date(formData.appointmentDate).toLocaleDateString('id-ID', {
                         weekday: 'long',
                         month: 'long',
                         day: 'numeric',
@@ -344,21 +344,21 @@ const BookAppointment = () => {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Time:</span>
+                    <span className="text-gray-600">Waktu:</span>
                     <span className="font-medium text-gray-800">{formData.appointmentTime}</span>
                   </div>
                   {selectedPet && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Pet:</span>
+                      <span className="text-gray-600">Hewan:</span>
                       <span className="font-medium text-gray-800 capitalize">
                         {selectedPet.name} ({selectedPet.species})
                       </span>
                     </div>
                   )}
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Payment:</span>
+                    <span className="text-gray-600">Pembayaran:</span>
                     <span className="font-medium text-gray-800">
-                      {formData.paymentMethod === 'pay_now' ? 'Pay Online' : 'Pay at Clinic'}
+                      {formData.paymentMethod === 'pay_now' ? 'Bayar Online' : 'Bayar di Klinik'}
                     </span>
                   </div>
                 </div>
@@ -371,14 +371,14 @@ const BookAppointment = () => {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle size={40} className="text-green-500" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Appointment Confirmed!</h2>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Janji Temu Dikonfirmasi!</h2>
               <p className="text-gray-600 mb-6">
-                We've sent a confirmation email to your inbox. Redirecting to dashboard...
+                Kami telah mengirimkan email konfirmasi ke kotak masuk Anda. Mengalihkan ke dashboard...
               </p>
             </div>
           )}
 
-          {/* Navigation Buttons */}
+          {/* Tombol Navigasi */}
           {step < 4 && (
             <div className="flex gap-3 mt-8">
               {step > 1 && (
@@ -387,7 +387,7 @@ const BookAppointment = () => {
                   className="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
                 >
                   <ChevronLeft size={20} />
-                  Back
+                  Kembali
                 </button>
               )}
               {step < 3 ? (
@@ -395,7 +395,7 @@ const BookAppointment = () => {
                   onClick={handleNext}
                   className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 px-6 rounded-xl font-medium hover:shadow-lg transition-all"
                 >
-                  Continue
+                  Lanjut
                 </button>
               ) : (
                 <button
@@ -403,7 +403,7 @@ const BookAppointment = () => {
                   disabled={loading}
                   className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 px-6 rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {loading ? 'Booking...' : 'Confirm Booking'}
+                  {loading ? 'Memesan...' : 'Konfirmasi Pemesanan'}
                 </button>
               )}
             </div>

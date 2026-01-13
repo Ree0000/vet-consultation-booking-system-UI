@@ -20,7 +20,7 @@ const AdminDashboard = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching stats:', error);
-      showToast('Failed to load statistics', 'error');
+      showToast('Gagal memuat statistik', 'error');
       setLoading(false);
     }
   };
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading dashboard...</div>
+          <div className="text-blue-600 text-xl">Memuat dashboard...</div>
         </div>
       </AdminLayout>
     );
@@ -37,13 +37,13 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      {/* Welcome Header */}
+      {/* Header Selamat Datang */}
       <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl shadow-lg p-6 sm:p-8 mb-6 text-white">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">Admin Dashboard</h1>
-        <p className="text-blue-100">Manage appointments, veterinarians, and users</p>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-2">Dashboard Admin</h1>
+        <p className="text-blue-100">Kelola janji temu, dokter hewan, dan pengguna</p>
       </div>
 
-      {/* Stats Grid */}
+      {/* Grid Statistik */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-3">
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
             </div>
             <span className="text-3xl font-bold text-gray-800">{stats?.today || 0}</span>
           </div>
-          <p className="text-gray-600 text-sm font-medium">Today's Appointments</p>
+          <p className="text-gray-600 text-sm font-medium">Janji Temu Hari Ini</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
@@ -62,7 +62,7 @@ const AdminDashboard = () => {
             </div>
             <span className="text-3xl font-bold text-gray-800">{stats?.scheduled || 0}</span>
           </div>
-          <p className="text-gray-600 text-sm font-medium">Scheduled</p>
+          <p className="text-gray-600 text-sm font-medium">Terjadwalkan</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
             </div>
             <span className="text-3xl font-bold text-gray-800">{stats?.completed || 0}</span>
           </div>
-          <p className="text-gray-600 text-sm font-medium">Completed</p>
+          <p className="text-gray-600 text-sm font-medium">Selesai</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
@@ -82,11 +82,11 @@ const AdminDashboard = () => {
             </div>
             <span className="text-3xl font-bold text-gray-800">{stats?.noShows || 0}</span>
           </div>
-          <p className="text-gray-600 text-sm font-medium">No-Shows</p>
+          <p className="text-gray-600 text-sm font-medium">Tidak Hadir</p>
         </div>
       </div>
 
-      {/* Secondary Stats */}
+      {/* Statistik Sekunder */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center gap-4">
@@ -95,7 +95,7 @@ const AdminDashboard = () => {
             </div>
             <div>
               <p className="text-3xl font-bold text-gray-800">{stats?.totalUsers || 0}</p>
-              <p className="text-gray-600 text-sm">Total Users</p>
+              <p className="text-gray-600 text-sm">Total Pengguna</p>
             </div>
           </div>
         </div>
@@ -107,7 +107,7 @@ const AdminDashboard = () => {
             </div>
             <div>
               <p className="text-3xl font-bold text-gray-800">{stats?.totalPets || 0}</p>
-              <p className="text-gray-600 text-sm">Total Pets</p>
+              <p className="text-gray-600 text-sm">Total Hewan Peliharaan</p>
             </div>
           </div>
         </div>
@@ -119,15 +119,15 @@ const AdminDashboard = () => {
             </div>
             <div>
               <p className="text-3xl font-bold text-gray-800">{stats?.cancelled || 0}</p>
-              <p className="text-gray-600 text-sm">Cancelled</p>
+              <p className="text-gray-600 text-sm">Dibatalkan</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Aksi Cepat */}
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Aksi Cepat</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             to="/admin/appointments"
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
             <div className="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
               <Calendar size={32} className="text-white" />
             </div>
-            <span className="font-semibold text-gray-800">View Appointments</span>
+            <span className="font-semibold text-gray-800">Lihat Janji Temu</span>
           </Link>
 
           <Link
@@ -146,7 +146,7 @@ const AdminDashboard = () => {
             <div className="w-16 h-16 bg-cyan-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
               <CheckCircle size={32} className="text-white" />
             </div>
-            <span className="font-semibold text-gray-800">Manage Vets</span>
+            <span className="font-semibold text-gray-800">Kelola Dokter Hewan</span>
           </Link>
 
           <Link
@@ -156,7 +156,7 @@ const AdminDashboard = () => {
             <div className="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
               <Users size={32} className="text-white" />
             </div>
-            <span className="font-semibold text-gray-800">Manage Users</span>
+            <span className="font-semibold text-gray-800">Kelola Pengguna</span>
           </Link>
 
           <Link
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
             <div className="w-16 h-16 bg-amber-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
               <Clock size={32} className="text-white" />
             </div>
-            <span className="font-semibold text-gray-800">Today's Schedule</span>
+            <span className="font-semibold text-gray-800">Jadwal Hari Ini</span>
           </Link>
         </div>
       </div>

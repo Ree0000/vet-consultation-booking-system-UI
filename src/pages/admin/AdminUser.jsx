@@ -35,7 +35,7 @@ const AdminUsers = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching users:', error);
-      showToast('Failed to load users', 'error');
+      showToast('Gagal memuat pengguna', 'error');
       setLoading(false);
     }
   };
@@ -62,7 +62,7 @@ const AdminUsers = () => {
       setShowDetailsModal(true);
     } catch (error) {
       console.error('Error fetching user details:', error);
-      showToast('Failed to load user details', 'error');
+      showToast('Gagal memuat detail pengguna', 'error');
     }
   };
 
@@ -85,35 +85,35 @@ const AdminUsers = () => {
 
   const handleUpdateUser = async () => {
     if (!editFormData.name || !editFormData.email || !editFormData.phone) {
-      showToast('Please fill in all fields', 'warning');
+      showToast('Harap isi semua kolom', 'warning');
       return;
     }
 
     setSaving(true);
     try {
       await adminUsersAPI.update(selectedUser.id, editFormData);
-      showToast('User updated successfully', 'success');
+      showToast('Pengguna berhasil diperbarui', 'success');
       fetchUsers();
       handleCloseModals();
     } catch (error) {
       console.error('Error updating user:', error);
-      showToast(error.response?.data?.message || 'Failed to update user', 'error');
+      showToast(error.response?.data?.message || 'Gagal memperbarui pengguna', 'error');
     }
     setSaving(false);
   };
 
   const handleResetPassword = async (userId, userName) => {
-    if (!window.confirm(`Send password reset email to ${userName}?`)) {
+    if (!window.confirm(`Kirim email reset kata sandi ke ${userName}?`)) {
       return;
     }
 
     setResettingPassword(userId);
     try {
       await adminUsersAPI.resetPassword(userId);
-      showToast('Password reset email sent successfully', 'success');
+      showToast('Email reset kata sandi berhasil dikirim', 'success');
     } catch (error) {
       console.error('Error resetting password:', error);
-      showToast(error.response?.data?.message || 'Failed to reset password', 'error');
+      showToast(error.response?.data?.message || 'Gagal mereset kata sandi', 'error');
     }
     setResettingPassword(false);
   };
@@ -122,7 +122,7 @@ const AdminUsers = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading users...</div>
+          <div className="text-blue-600 text-xl">Memuat pengguna...</div>
         </div>
       </AdminLayout>
     );
@@ -132,14 +132,14 @@ const AdminUsers = () => {
     <AdminLayout>
       {/* Header */}
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Users Management</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Manajemen Pengguna</h1>
 
-        {/* Search */}
+        {/* Pencarian */}
         <div className="relative max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
-            placeholder="Search by name, email, or phone..."
+            placeholder="Cari berdasarkan nama, email, atau telepon..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
@@ -147,16 +147,16 @@ const AdminUsers = () => {
         </div>
 
         <div className="mt-4 text-sm text-gray-600">
-          Showing {filteredUsers.length} of {users.length} users
+          Menampilkan {filteredUsers.length} dari {users.length} pengguna
         </div>
       </div>
 
-      {/* Users List */}
+      {/* Daftar Pengguna */}
       {filteredUsers.length === 0 ? (
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
           <Users size={64} className="text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No users found</h3>
-          <p className="text-gray-500">Try adjusting your search</p>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Tidak ada pengguna ditemukan</h3>
+          <p className="text-gray-500">Coba sesuaikan pencarian Anda</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -182,24 +182,24 @@ const AdminUsers = () => {
                   <div className="flex items-center gap-4 text-xs text-gray-500 mt-2">
                     <span className="flex items-center gap-1">
                       <PawPrint size={12} />
-                      {user._count?.pets || 0} pets
+                      {user._count?.pets || 0} hewan
                     </span>
                     <span className="flex items-center gap-1">
                       <Calendar size={12} />
-                      {user._count?.appointments || 0} appointments
+                      {user._count?.appointments || 0} janji temu
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Actions */}
+              {/* Aksi */}
               <div className="flex gap-2 mt-4 pt-4 border-t border-gray-100">
                 <button
                   onClick={() => handleViewDetails(user.id)}
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 text-sm font-medium hover:bg-blue-100 transition-colors"
                 >
                   <Eye size={16} />
-                  View
+                  Lihat
                 </button>
                 <button
                   onClick={() => handleOpenEditModal(user)}
@@ -222,12 +222,12 @@ const AdminUsers = () => {
         </div>
       )}
 
-      {/* Details Modal */}
+      {/* Modal Detail */}
       {showDetailsModal && selectedUser && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
           <div className="bg-white rounded-2xl max-w-2xl w-full p-6 my-8">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-800">User Details</h3>
+              <h3 className="text-xl font-bold text-gray-800">Detail Pengguna</h3>
               <button
                 onClick={handleCloseModals}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -236,12 +236,12 @@ const AdminUsers = () => {
               </button>
             </div>
 
-            {/* User Info */}
+            {/* Info Pengguna */}
             <div className="bg-gray-50 rounded-xl p-4 mb-6">
-              <h4 className="font-semibold text-gray-800 mb-3">Personal Information</h4>
+              <h4 className="font-semibold text-gray-800 mb-3">Informasi Pribadi</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Name:</span>
+                  <span className="text-gray-600">Nama:</span>
                   <span className="font-medium text-gray-800">{selectedUser.name}</span>
                 </div>
                 <div className="flex justify-between">
@@ -249,22 +249,22 @@ const AdminUsers = () => {
                   <span className="font-medium text-gray-800">{selectedUser.email}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Phone:</span>
+                  <span className="text-gray-600">Telepon:</span>
                   <span className="font-medium text-gray-800">{selectedUser.phone}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Joined:</span>
+                  <span className="text-gray-600">Bergabung:</span>
                   <span className="font-medium text-gray-800">
-                    {new Date(selectedUser.createdAt).toLocaleDateString()}
+                    {new Date(selectedUser.createdAt).toLocaleDateString('id-ID')}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Pets */}
+            {/* Hewan Peliharaan */}
             {selectedUser.pets && selectedUser.pets.length > 0 && (
               <div className="mb-6">
-                <h4 className="font-semibold text-gray-800 mb-3">Pets ({selectedUser.pets.length})</h4>
+                <h4 className="font-semibold text-gray-800 mb-3">Hewan Peliharaan ({selectedUser.pets.length})</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedUser.pets.map((pet) => (
                     <div key={pet.id} className="bg-blue-50 rounded-lg p-3">
@@ -273,7 +273,7 @@ const AdminUsers = () => {
                         <span className="font-medium text-gray-800">{pet.name}</span>
                       </div>
                       <p className="text-sm text-gray-600 mt-1 capitalize">
-                        {pet.species} {pet.breed && `• ${pet.breed}`} {pet.age && `• ${pet.age}y`}
+                        {pet.species} {pet.breed && `• ${pet.breed}`} {pet.age && `• ${pet.age} tahun`}
                       </p>
                     </div>
                   ))}
@@ -281,11 +281,11 @@ const AdminUsers = () => {
               </div>
             )}
 
-            {/* Appointments */}
+            {/* Janji Temu */}
             {selectedUser.appointments && selectedUser.appointments.length > 0 && (
               <div>
                 <h4 className="font-semibold text-gray-800 mb-3">
-                  Recent Appointments ({selectedUser.appointments.slice(0, 5).length})
+                  Janji Temu Terbaru ({selectedUser.appointments.slice(0, 5).length})
                 </h4>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {selectedUser.appointments.slice(0, 5).map((apt) => (
@@ -297,11 +297,14 @@ const AdminUsers = () => {
                             apt.status === 'cancelled' ? 'bg-gray-100 text-gray-700' :
                               'bg-red-100 text-red-700'
                           }`}>
-                          {apt.status}
+                          {apt.status === 'completed' ? 'Selesai' :
+                            apt.status === 'scheduled' ? 'Terjadwal' :
+                              apt.status === 'cancelled' ? 'Dibatalkan' :
+                                apt.status === 'no-show' ? 'Tidak Hadir' : apt.status}
                         </span>
                       </div>
                       <p className="text-sm text-gray-600 mt-1">
-                        {new Date(apt.appointmentDate).toLocaleDateString()} • {apt.appointmentTime}
+                        {new Date(apt.appointmentDate).toLocaleDateString('id-ID')} • {apt.appointmentTime}
                       </p>
                       <p className="text-sm text-gray-600">Dr. {apt.vet.name}</p>
                     </div>
@@ -313,12 +316,12 @@ const AdminUsers = () => {
         </div>
       )}
 
-      {/* Edit Modal */}
+      {/* Modal Edit */}
       {showEditModal && selectedUser && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-800">Edit User</h3>
+              <h3 className="text-xl font-bold text-gray-800">Edit Pengguna</h3>
               <button
                 onClick={handleCloseModals}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -329,7 +332,7 @@ const AdminUsers = () => {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Nama</label>
                 <input
                   type="text"
                   value={editFormData.name}
@@ -349,7 +352,7 @@ const AdminUsers = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Telepon</label>
                 <input
                   type="tel"
                   value={editFormData.phone}
@@ -364,7 +367,7 @@ const AdminUsers = () => {
                 onClick={handleCloseModals}
                 className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                Batal
               </button>
               <button
                 onClick={handleUpdateUser}
@@ -372,7 +375,7 @@ const AdminUsers = () => {
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50"
               >
                 <Save size={20} />
-                {saving ? 'Saving...' : 'Update'}
+                {saving ? 'Menyimpan...' : 'Perbarui'}
               </button>
             </div>
           </div>

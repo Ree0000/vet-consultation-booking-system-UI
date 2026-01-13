@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Calendar, Clock, PawPrint, User, Phone, Mail, MapPin, CreditCard, XCircle, ArrowLeft } from 'lucide-react';
-import { appointmentsAPI } from '../services/api';
 import { showToast } from '../components/Layout/Toast';
+import { appointmentsAPI } from '../services/api';
 import Layout from '../components/Layout/Layout';
 
 const AppointmentDetails = () => {
@@ -23,31 +23,31 @@ const AppointmentDetails = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching appointment:', error);
-      showToast('Failed to load appointment details', 'error');
+      showToast('Gagal memuat detail janji temu', 'error');
       setLoading(false);
     }
   };
 
   const handleCancelAppointment = async () => {
-    if (!window.confirm('Are you sure you want to cancel this appointment?')) {
+    if (!window.confirm('Apakah Anda yakin ingin membatalkan janji temu ini?')) {
       return;
     }
 
     setCancelling(true);
     try {
       await appointmentsAPI.cancel(id);
-      showToast('Appointment cancelled successfully', 'success');
+      showToast('Janji temu berhasil dibatalkan', 'success');
       navigate('/appointments');
     } catch (error) {
       console.error('Error cancelling appointment:', error);
-      showToast('Failed to cancel appointment', 'error');
+      showToast('Gagal membatalkan janji temu', 'error');
       setCancelling(false);
     }
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('id-ID', {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
@@ -68,7 +68,7 @@ const AppointmentDetails = () => {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading appointment...</div>
+          <div className="text-blue-600 text-xl">Memuat janji temu...</div>
         </div>
       </Layout>
     );
@@ -78,12 +78,12 @@ const AppointmentDetails = () => {
     return (
       <Layout>
         <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">Appointment not found</p>
+          <p className="text-gray-500 mb-4">Janji temu tidak ditemukan</p>
           <Link
             to="/appointments"
             className="text-blue-600 hover:text-blue-700 font-medium"
           >
-            Back to Appointments
+            Kembali ke Janji Temu
           </Link>
         </div>
       </Layout>
@@ -93,13 +93,13 @@ const AppointmentDetails = () => {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto">
-        {/* Back Button */}
+        {/* Tombol Kembali */}
         <Link
           to="/appointments"
           className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-6 transition-colors"
         >
           <ArrowLeft size={20} />
-          <span>Back to Appointments</span>
+          <span>Kembali ke Janji Temu</span>
         </Link>
 
         {/* Header */}
@@ -107,11 +107,13 @@ const AppointmentDetails = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
-                Appointment Details
+                Detail Janji Temu
               </h1>
               <div className="flex items-center gap-2">
                 <span className={`px-4 py-1.5 rounded-full text-sm font-medium border ${getStatusColor(appointment.status)}`}>
-                  {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+                  {appointment.status === 'scheduled' && 'Terjadwal'}
+                  {appointment.status === 'completed' && 'Selesai'}
+                  {appointment.status === 'cancelled' && 'Dibatalkan'}
                 </span>
               </div>
             </div>
@@ -122,25 +124,25 @@ const AppointmentDetails = () => {
                 className="inline-flex items-center gap-2 px-6 py-3 text-red-600 border border-red-300 rounded-xl font-medium hover:bg-red-50 transition-colors disabled:opacity-50"
               >
                 <XCircle size={20} />
-                {cancelling ? 'Cancelling...' : 'Cancel Appointment'}
+                {cancelling ? 'Membatalkan...' : 'Batalkan Janji Temu'}
               </button>
             )}
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Info */}
+          {/* Informasi Utama */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Appointment Info */}
+            {/* Informasi Janji Temu */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Appointment Information</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">Informasi Janji Temu</h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Calendar size={20} className="text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Date</p>
+                    <p className="text-sm text-gray-500">Tanggal</p>
                     <p className="font-semibold text-gray-800">{formatDate(appointment.appointmentDate)}</p>
                   </div>
                 </div>
@@ -150,7 +152,7 @@ const AppointmentDetails = () => {
                     <Clock size={20} className="text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Time</p>
+                    <p className="text-sm text-gray-500">Waktu</p>
                     <p className="font-semibold text-gray-800">{appointment.appointmentTime}</p>
                   </div>
                 </div>
@@ -160,7 +162,7 @@ const AppointmentDetails = () => {
                     <User size={20} className="text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Veterinarian</p>
+                    <p className="text-sm text-gray-500">Dokter Hewan</p>
                     <p className="font-semibold text-gray-800">Dr. {appointment.vet.name}</p>
                     {appointment.vet.specialization && (
                       <p className="text-sm text-gray-600">{appointment.vet.specialization}</p>
@@ -173,25 +175,25 @@ const AppointmentDetails = () => {
                     <CreditCard size={20} className="text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Payment Method</p>
+                    <p className="text-sm text-gray-500">Metode Pembayaran</p>
                     <p className="font-semibold text-gray-800">
-                      {appointment.paymentMethod === 'pay_now' ? 'Paid Online' : 'Pay at Clinic'}
+                      {appointment.paymentMethod === 'pay_now' ? 'Dibayar Online' : 'Bayar di Klinik'}
                     </p>
                   </div>
                 </div>
 
                 {appointment.reason && (
                   <div className="pt-4 border-t border-gray-100">
-                    <p className="text-sm text-gray-500 mb-2">Reason for Visit</p>
+                    <p className="text-sm text-gray-500 mb-2">Alasan Kunjungan</p>
                     <p className="text-gray-800">{appointment.reason}</p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Pet Info */}
+            {/* Informasi Hewan Peliharaan */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Pet Information</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">Informasi Hewan Peliharaan</h2>
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center">
                   <PawPrint size={28} className="text-blue-500" />
@@ -209,7 +211,7 @@ const AppointmentDetails = () => {
                     {appointment.pet.age && (
                       <>
                         <span>•</span>
-                        <span>{appointment.pet.age} years old</span>
+                        <span>{appointment.pet.age} tahun</span>
                       </>
                     )}
                   </div>
@@ -220,9 +222,9 @@ const AppointmentDetails = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Owner Info */}
+            {/* Informasi Pemilik */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-4">Your Information</h2>
+              <h2 className="text-lg font-bold text-gray-800 mb-4">Informasi Anda</h2>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <User size={18} className="text-gray-400" />
@@ -239,15 +241,15 @@ const AppointmentDetails = () => {
               </div>
             </div>
 
-            {/* Clinic Info (Mock) */}
+            {/* Informasi Klinik (Mock) */}
             <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl border border-blue-100 p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-4">Clinic Information</h2>
+              <h2 className="text-lg font-bold text-gray-800 mb-4">Informasi Klinik</h2>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3">
                   <MapPin size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-800">PawCare Veterinary Clinic</p>
-                    <p className="text-gray-600">123 Pet Street, Animal City, AC 12345</p>
+                    <p className="font-medium text-gray-800">Klinik Hewan Urban Animal</p>
+                    <p className="text-gray-600">Jl. Cibeunying Kolot No.66, Cigadung, Kec. Cibeunying Kaler, Kota Bandung, Jawa Barat 40191</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -256,7 +258,7 @@ const AppointmentDetails = () => {
                 </div>
                 <div className="pt-3 border-t border-blue-200">
                   <p className="text-xs text-gray-600">
-                    Please arrive 10 minutes before your appointment time.
+                    Harap datang 10 menit sebelum waktu janji temu Anda.
                   </p>
                 </div>
               </div>

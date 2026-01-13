@@ -103,7 +103,7 @@ const Dashboard = () => {
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">
               Selamat datang kembali, {user?.name}! 👋
             </h1>
-            <p className="text-gray-500">Mari kita rawat hewan peliharaanmu hari ini</p>
+            <p className="text-gray-500">Mari rawat hewan peliharaanmu hari ini</p>
           </div>
         </div>
       </div>

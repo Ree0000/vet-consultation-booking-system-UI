@@ -19,17 +19,17 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (!password || !confirmPassword) {
-      showToast('Please fill in all fields', 'warning');
+      showToast('Harap isi semua kolom', 'warning');
       return;
     }
 
     if (password.length < 6) {
-      showToast('Password must be at least 6 characters', 'warning');
+      showToast('Kata sandi minimal 6 karakter', 'warning');
       return;
     }
 
     if (password !== confirmPassword) {
-      showToast('Passwords do not match', 'error');
+      showToast('Kata sandi tidak cocok', 'error');
       return;
     }
 
@@ -37,16 +37,16 @@ const ResetPassword = () => {
     try {
       await authAPI.resetPassword(token, password);
       setResetSuccess(true);
-      showToast('Password reset successful!', 'success');
+      showToast('Pengaturan ulang kata sandi berhasil!', 'success');
 
-      // Redirect to login after 3 seconds
+      // Redirect ke halaman login setelah 3 detik
       setTimeout(() => {
         navigate('/login');
       }, 3000);
     } catch (error) {
       console.error('Reset password error:', error);
       showToast(
-        error.response?.data?.message || 'Failed to reset password. Link may be expired.',
+        error.response?.data?.message || 'Gagal mengatur ulang kata sandi. Tautan mungkin kedaluwarsa.',
         'error'
       );
     }
@@ -62,31 +62,31 @@ const ResetPassword = () => {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl mb-4 shadow-lg">
               <Heart size={40} className="text-white" fill="white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Reset Password</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Atur Ulang Kata Sandi</h1>
             <p className="text-gray-500">
-              {resetSuccess ? 'Password successfully reset!' : 'Enter your new password'}
+              {resetSuccess ? 'Kata sandi berhasil diatur ulang!' : 'Masukkan kata sandi baru Anda'}
             </p>
           </div>
 
-          {/* Form Card */}
+          {/* Kartu Formulir */}
           <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8">
             {resetSuccess ? (
               <div className="text-center py-4">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle size={32} className="text-green-500" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">Password Reset Complete!</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Pengaturan Ulang Kata Sandi Selesai!</h3>
                 <p className="text-gray-600 mb-6">
-                  Your password has been successfully reset. You can now login with your new password.
+                  Kata sandi Anda telah berhasil diatur ulang. Anda sekarang dapat login dengan kata sandi baru.
                 </p>
-                <p className="text-sm text-gray-500">Redirecting to login page...</p>
+                <p className="text-sm text-gray-500">Mengalihkan ke halaman login...</p>
               </div>
             ) : (
               <div>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      New Password
+                      Kata Sandi Baru
                     </label>
                     <div className="relative">
                       <Lock
@@ -98,7 +98,7 @@ const ResetPassword = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                        placeholder="Enter new password"
+                        placeholder="Masukkan kata sandi baru"
                         required
                       />
                       <button
@@ -109,12 +109,12 @@ const ResetPassword = () => {
                         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                       </button>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">Must be at least 6 characters</p>
+                    <p className="text-xs text-gray-500 mt-1">Minimal 6 karakter</p>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Confirm Password
+                      Konfirmasi Kata Sandi
                     </label>
                     <div className="relative">
                       <Lock
@@ -126,7 +126,7 @@ const ResetPassword = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                        placeholder="Confirm new password"
+                        placeholder="Konfirmasi kata sandi baru"
                         required
                       />
                       <button
@@ -144,18 +144,18 @@ const ResetPassword = () => {
                     disabled={loading}
                     className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 px-4 rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {loading ? 'Resetting Password...' : 'Reset Password'}
+                    {loading ? 'Mengatur Ulang Kata Sandi...' : 'Atur Ulang Kata Sandi'}
                   </button>
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <p className="text-center text-sm text-gray-600">
-                    Remember your password?{' '}
+                    Ingat kata sandi Anda?{' '}
                     <Link
                       to="/login"
                       className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
                     >
-                      Login here
+                      Login di sini
                     </Link>
                   </p>
                 </div>

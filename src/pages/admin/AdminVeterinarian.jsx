@@ -28,7 +28,7 @@ const AdminVeterinarians = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching vets:', error);
-      showToast('Failed to load veterinarians', 'error');
+      showToast('Gagal memuat dokter hewan', 'error');
       setLoading(false);
     }
   };
@@ -60,7 +60,7 @@ const AdminVeterinarians = () => {
 
   const handleSubmit = async () => {
     if (!formData.name.trim()) {
-      showToast('Please enter veterinarian name', 'warning');
+      showToast('Harap masukkan nama dokter hewan', 'warning');
       return;
     }
 
@@ -68,16 +68,16 @@ const AdminVeterinarians = () => {
     try {
       if (editingVet) {
         await adminVeterinariansAPI.update(editingVet.id, formData);
-        showToast('Veterinarian updated successfully', 'success');
+        showToast('Dokter hewan berhasil diperbarui', 'success');
       } else {
         await adminVeterinariansAPI.create(formData);
-        showToast('Veterinarian added successfully', 'success');
+        showToast('Dokter hewan berhasil ditambahkan', 'success');
       }
       fetchVets();
       handleCloseModal();
     } catch (error) {
       console.error('Error saving vet:', error);
-      showToast(error.response?.data?.message || 'Failed to save veterinarian', 'error');
+      showToast(error.response?.data?.message || 'Gagal menyimpan dokter hewan', 'error');
     }
     setSaving(false);
   };
@@ -86,27 +86,27 @@ const AdminVeterinarians = () => {
     setTogglingId(id);
     try {
       await adminVeterinariansAPI.toggleAvailability(id);
-      showToast('Availability updated', 'success');
+      showToast('Ketersediaan diperbarui', 'success');
       fetchVets();
     } catch (error) {
       console.error('Error toggling availability:', error);
-      showToast('Failed to update availability', 'error');
+      showToast('Gagal memperbarui ketersediaan', 'error');
     }
     setTogglingId(null);
   };
 
   const handleDelete = async (id, name) => {
-    if (!window.confirm(`Are you sure you want to delete Dr. ${name}? This action cannot be undone.`)) {
+    if (!window.confirm(`Apakah Anda yakin ingin menghapus Dr. ${name}? Tindakan ini tidak dapat dibatalkan.`)) {
       return;
     }
 
     try {
       await adminVeterinariansAPI.delete(id);
-      showToast('Veterinarian deleted successfully', 'success');
+      showToast('Dokter hewan berhasil dihapus', 'success');
       fetchVets();
     } catch (error) {
       console.error('Error deleting vet:', error);
-      showToast(error.response?.data?.message || 'Failed to delete veterinarian', 'error');
+      showToast(error.response?.data?.message || 'Gagal menghapus dokter hewan', 'error');
     }
   };
 
@@ -114,7 +114,7 @@ const AdminVeterinarians = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-blue-600 text-xl">Loading veterinarians...</div>
+          <div className="text-blue-600 text-xl">Memuat dokter hewan...</div>
         </div>
       </AdminLayout>
     );
@@ -126,31 +126,31 @@ const AdminVeterinarians = () => {
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-1">Veterinarians</h1>
-            <p className="text-gray-500">Manage your veterinary team</p>
+            <h1 className="text-3xl font-bold text-gray-800 mb-1">Dokter Hewan</h1>
+            <p className="text-gray-500">Kelola tim dokter hewan Anda</p>
           </div>
           <button
             onClick={() => handleOpenModal()}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all"
           >
             <Plus size={20} />
-            Add Veterinarian
+            Tambah Dokter Hewan
           </button>
         </div>
       </div>
 
-      {/* Vets Grid */}
+      {/* Grid Dokter Hewan */}
       {vets.length === 0 ? (
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
           <Stethoscope size={64} className="text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No veterinarians added yet</h3>
-          <p className="text-gray-500 mb-6">Add your first veterinarian to get started</p>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Belum ada dokter hewan ditambahkan</h3>
+          <p className="text-gray-500 mb-6">Tambahkan dokter hewan pertama Anda untuk memulai</p>
           <button
             onClick={() => handleOpenModal()}
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all"
           >
             <Plus size={20} />
-            Add Veterinarian
+            Tambah Dokter Hewan
           </button>
         </div>
       ) : (
@@ -174,22 +174,22 @@ const AdminVeterinarians = () => {
                 </div>
               </div>
 
-              {/* Availability Badge */}
+              {/* Badge Ketersediaan */}
               <div className="mb-4">
                 {vet.available ? (
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    Available
+                    Tersedia
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200">
                     <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
-                    Unavailable
+                    Tidak Tersedia
                   </span>
                 )}
               </div>
 
-              {/* Actions */}
+              {/* Aksi */}
               <div className="flex gap-2 pt-4 border-t border-gray-100">
                 <button
                   onClick={() => handleToggleAvailability(vet.id)}
@@ -197,7 +197,7 @@ const AdminVeterinarians = () => {
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 text-sm font-medium hover:bg-blue-100 transition-colors disabled:opacity-50"
                 >
                   <Power size={16} />
-                  {togglingId === vet.id ? 'Updating...' : 'Toggle'}
+                  {togglingId === vet.id ? 'Memperbarui...' : 'Toggle'}
                 </button>
                 <button
                   onClick={() => handleOpenModal(vet)}
@@ -218,13 +218,13 @@ const AdminVeterinarians = () => {
         </div>
       )}
 
-      {/* Add/Edit Modal */}
+      {/* Modal Tambah/Edit */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-800">
-                {editingVet ? 'Edit Veterinarian' : 'Add Veterinarian'}
+                {editingVet ? 'Edit Dokter Hewan' : 'Tambah Dokter Hewan'}
               </h3>
               <button
                 onClick={handleCloseModal}
@@ -237,26 +237,26 @@ const AdminVeterinarians = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Name <span className="text-red-500">*</span>
+                  Nama <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g., Sarah Johnson"
+                  placeholder="contoh: Sarah Johnson"
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Specialization (Optional)
+                  Spesialisasi (Opsional)
                 </label>
                 <input
                   type="text"
                   value={formData.specialization}
                   onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
-                  placeholder="e.g., Small Animals, Surgery"
+                  placeholder="contoh: Hewan Kecil, Bedah"
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
                 />
               </div>
@@ -270,7 +270,7 @@ const AdminVeterinarians = () => {
                   className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
                 <label htmlFor="available" className="text-sm font-medium text-gray-700">
-                  Available for appointments
+                  Tersedia untuk janji temu
                 </label>
               </div>
             </div>
@@ -280,7 +280,7 @@ const AdminVeterinarians = () => {
                 onClick={handleCloseModal}
                 className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                Batal
               </button>
               <button
                 onClick={handleSubmit}
@@ -288,7 +288,7 @@ const AdminVeterinarians = () => {
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50"
               >
                 <Save size={20} />
-                {saving ? 'Saving...' : editingVet ? 'Update' : 'Add'}
+                {saving ? 'Menyimpan...' : editingVet ? 'Perbarui' : 'Tambah'}
               </button>
             </div>
           </div>

@@ -171,8 +171,8 @@ const Appointments = () => {
             key={filter.key}
             onClick={() => setActiveFilter(filter.key)}
             className={`px-6 py-2 rounded-xl font-medium whitespace-nowrap transition-all ${activeFilter === filter.key
-                ? 'bg-blue-500 text-white shadow-sm'
-                : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+              ? 'bg-blue-500 text-white shadow-sm'
+              : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
               }`}
           >
             {filter.label}
@@ -185,12 +185,16 @@ const Appointments = () => {
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
           <Calendar size={64} className="text-gray-300 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
-            Tidak ada janji temu {activeFilter}
+            Tidak ada janji temu saat ini{/*activeFilter*/}
           </h3>
-          <p className="text-gray-500 mb-6">
+          <p className="text-gray-500 mb-4">
             {activeFilter === 'upcoming'
               ? 'Anda belum memiliki janji temu mendatang.'
-              : `Anda tidak memiliki janji temu ${activeFilter}.`}
+              : activeFilter === 'past'
+                ? 'Anda tidak memiliki janji temu yang telah lewat.'
+                : activeFilter === 'cancelled'
+                  ? 'Anda tidak memiliki janji temu yang dibatalkan.'
+                  : 'Anda tidak memiliki janji temu.'}
           </p>
           {activeFilter === 'upcoming' && (
             <Link

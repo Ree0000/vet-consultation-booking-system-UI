@@ -40,25 +40,22 @@ const Settings = () => {
     e.preventDefault();
 
     if (!profileData.name || !profileData.email || !profileData.phone) {
-      showToast('Please fill in all fields', 'warning');
+      showToast('Harap isi semua kolom', 'warning');
       return;
     }
 
     setProfileLoading(true);
     try {
       const response = await usersAPI.updateProfile(profileData);
-      showToast('Profile updated successfully!', 'success');
+      showToast('Profil berhasil diperbarui!', 'success');
 
-      // Update local storage with new user data
       const updatedUser = response.data.data.user;
       localStorage.setItem('user', JSON.stringify(updatedUser));
 
-      // Force a small delay to show success before potential page refresh
       window.location.reload();
-
     } catch (error) {
-      console.error('Profile update error:', error);
-      showToast(error.response?.data?.message || 'Failed to update profile', 'error');
+      console.error('Terjadi kesalahan saat memperbarui profil:', error);
+      showToast(error.response?.data?.message || 'Gagal memperbarui profil', 'error');
     }
     setProfileLoading(false);
   };
@@ -67,17 +64,17 @@ const Settings = () => {
     e.preventDefault();
 
     if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
-      showToast('Please fill in all password fields', 'warning');
+      showToast('Harap isi semua kolom kata sandi', 'warning');
       return;
     }
 
     if (passwordData.newPassword.length < 6) {
-      showToast('New password must be at least 6 characters', 'warning');
+      showToast('Kata sandi baru harus minimal 6 karakter', 'warning');
       return;
     }
 
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      showToast('New passwords do not match', 'error');
+      showToast('Kata sandi baru tidak cocok', 'error');
       return;
     }
 
@@ -88,42 +85,38 @@ const Settings = () => {
         newPassword: passwordData.newPassword
       });
 
-      showToast('Password changed successfully!', 'success');
+      showToast('Kata sandi berhasil diubah!', 'success');
 
-      // Clear password fields
       setPasswordData({
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
       });
-
     } catch (error) {
-      console.error('Password change error:', error);
-      showToast(error.response?.data?.message || 'Failed to change password', 'error');
+      console.error('Terjadi kesalahan saat mengubah kata sandi:', error);
+      showToast(error.response?.data?.message || 'Gagal mengubah kata sandi', 'error');
     }
     setPasswordLoading(false);
   };
 
   const handleDeleteAccount = async () => {
     if (deleteConfirmation !== 'DELETE') {
-      showToast('Please type DELETE to confirm', 'warning');
+      showToast('Ketik DELETE untuk mengonfirmasi', 'warning');
       return;
     }
 
     setDeleteLoading(true);
     try {
       await usersAPI.deleteAccount();
-      showToast('Account deleted successfully', 'success');
+      showToast('Akun berhasil dihapus', 'success');
 
-      // Logout and redirect after a short delay
       setTimeout(() => {
         logout();
         navigate('/login');
       }, 1500);
-
     } catch (error) {
-      console.error('Account deletion error:', error);
-      showToast(error.response?.data?.message || 'Failed to delete account', 'error');
+      console.error('Terjadi kesalahan saat menghapus akun:', error);
+      showToast(error.response?.data?.message || 'Gagal menghapus akun', 'error');
       setDeleteLoading(false);
     }
   };
@@ -137,8 +130,8 @@ const Settings = () => {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Settings</h1>
-          <p className="text-gray-500">Manage your account settings and preferences</p>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Pengaturan</h1>
+          <p className="text-gray-500">Kelola pengaturan dan preferensi akun Anda</p>
         </div>
 
         <div className="space-y-6">
@@ -149,15 +142,15 @@ const Settings = () => {
                 <User size={24} className="text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-800">Profile Information</h2>
-                <p className="text-sm text-gray-500">Update your personal details</p>
+                <h2 className="text-xl font-bold text-gray-800">Informasi Profil</h2>
+                <p className="text-sm text-gray-500">Perbarui data pribadi Anda</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name
+                  Nama Lengkap
                 </label>
                 <div className="relative">
                   <User
@@ -175,7 +168,7 @@ const Settings = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address
+                  Alamat Email
                 </label>
                 <div className="relative">
                   <Mail
@@ -193,7 +186,7 @@ const Settings = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
+                  Nomor Telepon
                 </label>
                 <div className="relative">
                   <Phone
@@ -215,7 +208,7 @@ const Settings = () => {
                 className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50"
               >
                 <Save size={20} />
-                {profileLoading ? 'Saving...' : 'Save Changes'}
+                {profileLoading ? 'Menyimpan...' : 'Simpan Perubahan'}
               </button>
             </div>
           </div>
@@ -227,15 +220,17 @@ const Settings = () => {
                 <Lock size={24} className="text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-800">Change Password</h2>
-                <p className="text-sm text-gray-500">Update your password to keep your account secure</p>
+                <h2 className="text-xl font-bold text-gray-800">Ubah Kata Sandi</h2>
+                <p className="text-sm text-gray-500">
+                  Perbarui kata sandi untuk menjaga keamanan akun Anda
+                </p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Current Password
+                  Kata Sandi Saat Ini
                 </label>
                 <div className="relative">
                   <Lock
@@ -247,7 +242,7 @@ const Settings = () => {
                     value={passwordData.currentPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                     className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                    placeholder="Enter current password"
+                    placeholder="Masukkan kata sandi saat ini"
                   />
                   <button
                     type="button"
@@ -261,7 +256,7 @@ const Settings = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  New Password
+                  Kata Sandi Baru
                 </label>
                 <div className="relative">
                   <Lock
@@ -273,7 +268,7 @@ const Settings = () => {
                     value={passwordData.newPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                     className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                    placeholder="Enter new password"
+                    placeholder="Masukkan kata sandi baru"
                   />
                   <button
                     type="button"
@@ -283,12 +278,14 @@ const Settings = () => {
                     {showPasswords.new ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Must be at least 6 characters</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Minimal 6 karakter
+                </p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm New Password
+                  Konfirmasi Kata Sandi Baru
                 </label>
                 <div className="relative">
                   <Lock
@@ -300,7 +297,7 @@ const Settings = () => {
                     value={passwordData.confirmPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                     className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                    placeholder="Confirm new password"
+                    placeholder="Konfirmasi kata sandi baru"
                   />
                   <button
                     type="button"
@@ -318,7 +315,7 @@ const Settings = () => {
                 className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50"
               >
                 <Lock size={20} />
-                {passwordLoading ? 'Changing...' : 'Change Password'}
+                {passwordLoading ? 'Mengubah...' : 'Ubah Kata Sandi'}
               </button>
             </div>
           </div>
@@ -330,20 +327,20 @@ const Settings = () => {
                 <Trash2 size={24} className="text-red-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-800">Delete Account</h2>
-                <p className="text-sm text-red-600">This action cannot be undone</p>
+                <h2 className="text-xl font-bold text-gray-800">Hapus Akun</h2>
+                <p className="text-sm text-red-600">Tindakan ini tidak dapat dibatalkan</p>
               </div>
             </div>
 
             <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
               <p className="text-sm text-gray-700">
-                <strong>Warning:</strong> Deleting your account will permanently remove:
+                <strong>Peringatan:</strong> Menghapus akun Anda akan menghilangkan secara permanen:
               </p>
               <ul className="text-sm text-gray-600 mt-2 space-y-1 list-disc list-inside">
-                <li>All your personal information</li>
-                <li>All registered pets</li>
-                <li>All appointment history</li>
-                <li>Access to your account</li>
+                <li>Semua informasi pribadi Anda</li>
+                <li>Semua hewan peliharaan yang terdaftar</li>
+                <li>Seluruh riwayat janji temu</li>
+                <li>Akses ke akun Anda</li>
               </ul>
             </div>
 
@@ -352,7 +349,7 @@ const Settings = () => {
               className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-red-600 text-white rounded-xl font-medium hover:bg-red-700 transition-colors"
             >
               <Trash2 size={20} />
-              Delete My Account
+              Hapus Akun Saya
             </button>
           </div>
         </div>
@@ -362,19 +359,21 @@ const Settings = () => {
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Confirm Account Deletion</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">
+              Konfirmasi Penghapusan Akun
+            </h3>
             <p className="text-gray-600 mb-4">
-              This action is permanent and cannot be undone. All your data will be deleted.
+              Tindakan ini bersifat permanen dan tidak dapat dibatalkan. Semua data Anda akan dihapus.
             </p>
             <p className="text-sm font-medium text-gray-700 mb-2">
-              Type <span className="font-bold text-red-600">DELETE</span> to confirm:
+              Ketik <span className="font-bold text-red-600">DELETE</span> untuk mengonfirmasi:
             </p>
             <input
               type="text"
               value={deleteConfirmation}
               onChange={(e) => setDeleteConfirmation(e.target.value)}
               className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-red-400 focus:ring-4 focus:ring-red-50 transition-all outline-none mb-4"
-              placeholder="Type DELETE"
+              placeholder="Ketik DELETE"
             />
             <div className="flex gap-3">
               <button
@@ -384,14 +383,14 @@ const Settings = () => {
                 }}
                 className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                Batal
               </button>
               <button
                 onClick={handleDeleteAccount}
                 disabled={deleteLoading || deleteConfirmation !== 'DELETE'}
                 className="flex-1 px-4 py-3 bg-red-600 text-white rounded-xl font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {deleteLoading ? 'Deleting...' : 'Delete Account'}
+                {deleteLoading ? 'Menghapus...' : 'Hapus Akun'}
               </button>
             </div>
           </div>

@@ -21,12 +21,12 @@ const Footer = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
                 <Heart size={18} className="text-white" fill="white" />
               </div>
-              <span className="text-lg font-bold text-gray-800">PawCare Vet</span>
+              <span className="text-lg font-bold text-gray-800">Urban Animal</span>
             </div>
             <div className="space-y-2 text-sm text-gray-600">
               <div className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 flex-shrink-0 text-blue-500" />
-                <span>123 Pet Street, Animal City, AC 12345</span>
+                <span>Jl. Cibeunying Kolot No.66, Cigadung, Kec. Cibeunying Kaler, Kota Bandung, Jawa Barat 40191</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={16} className="flex-shrink-0 text-blue-500" />
@@ -34,7 +34,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} className="flex-shrink-0 text-blue-500" />
-                <span>info@pawcarevet.com</span>
+                <span>info@urbananimalvet.com</span>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div>
-            <h3 className="font-semibold text-gray-800 mb-4">Follow Us</h3>
+            <h3 className="font-semibold text-gray-800 mb-4">Ikuti Kami</h3>
             <div className="flex gap-3 mb-4">
               {socialLinks.map((social) => (
                 <a
@@ -84,21 +84,21 @@ const Footer = () => {
               ))}
             </div>
             <p className="text-sm text-gray-600">
-              Stay connected for updates and pet care tips!
+              Tetap terhubung untuk mendapatkan informasi terbaru dan tips perawatan hewan peliharaan!
             </p>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-200 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-600">
-          <p>© {currentYear} PawCare Vet. All rights reserved.</p>
+          <p>© {currentYear} Klinik Urban Animal. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-blue-600 transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-blue-600 transition-colors">
-              Terms of Service
-            </a>
+            {/* <a href="#" className="hover:text-blue-600 transition-colors"> */}
+            {/*   Privacy Policy */}
+            {/* </a> */}
+            {/* <a href="#" className="hover:text-blue-600 transition-colors"> */}
+            {/*   Terms of Service */}
+            {/* </a> */}
           </div>
         </div>
       </div>

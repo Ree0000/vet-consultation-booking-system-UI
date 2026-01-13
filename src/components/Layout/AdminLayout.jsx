@@ -17,9 +17,9 @@ const AdminLayout = ({ children }) => {
 
   const navItems = [
     { path: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { path: '/admin/appointments', icon: Calendar, label: 'Appointments' },
-    { path: '/admin/veterinarians', icon: Stethoscope, label: 'Veterinarians' },
-    { path: '/admin/users', icon: Users, label: 'Users' },
+    { path: '/admin/appointments', icon: Calendar, label: 'Pertemuan' },
+    { path: '/admin/veterinarians', icon: Stethoscope, label: 'Dokter Hewan' },
+    { path: '/admin/users', icon: Users, label: 'Pengguna' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -36,7 +36,7 @@ const AdminLayout = ({ children }) => {
                 <Heart size={22} className="text-blue-600" fill="currentColor" />
               </div>
               <div className="hidden sm:block">
-                <span className="text-xl font-bold text-white">PawCare Vet</span>
+                <span className="text-xl font-bold text-white">Urban Animal Vet</span>
                 <div className="flex items-center gap-1 text-xs text-blue-100">
                   <Shield size={12} />
                   <span>Admin Panel</span>
@@ -72,7 +72,7 @@ const AdminLayout = ({ children }) => {
                 className="hidden md:flex items-center gap-2 px-4 py-2 text-white hover:bg-blue-500 transition-colors rounded-xl"
               >
                 <LogOut size={18} />
-                <span>Logout</span>
+                <span>Keluar</span>
               </button>
 
               {/* Mobile Menu Button */}
@@ -112,7 +112,7 @@ const AdminLayout = ({ children }) => {
                 className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-blue-500 rounded-xl transition-colors"
               >
                 <LogOut size={20} />
-                <span>Logout</span>
+                <span>Keluar</span>
               </button>
             </div>
           </div>
