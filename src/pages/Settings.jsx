@@ -178,6 +178,7 @@ const Settings = () => {
                   <input
                     type="email"
                     value={profileData.email}
+                    disabled
                     onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
                   />
