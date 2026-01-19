@@ -13,17 +13,17 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) {
-      showToast('Harap masukkan alamat email Anda', 'warning');
-      return;
-    }
+    // if (!email) {
+    //   showToast('Harap masukkan alamat email Anda', 'warning');
+    //   return;
+    // }
 
     // Validasi format email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      showToast('Harap masukkan alamat email yang valid', 'warning');
-      return;
-    }
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailRegex.test(email)) {
+    //   showToast('Harap masukkan alamat email yang valid', 'warning');
+    //   return;
+    // }
 
     setLoading(true);
     try {

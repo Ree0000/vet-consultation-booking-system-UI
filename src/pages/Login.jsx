@@ -144,7 +144,7 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all outline-none"
-                    placeholder="anda@contoh.com"
+                    placeholder="email@contoh.com"
                     required
                   />
                 </div>
