@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
     { path: '/dashboard', icon: Home, label: 'Dashboard' },
     { path: '/appointments', icon: Calendar, label: 'Pertemuan' },
     { path: '/pets', icon: PawPrint, label: 'Hewan Peliharaan' },
-    { path: '/settings', icon: Settings, label: 'Settings' },
+    { path: '/settings', icon: Settings, label: 'Pengaturan' },
   ];
 
   const isActive = (path) => location.pathname === path;
