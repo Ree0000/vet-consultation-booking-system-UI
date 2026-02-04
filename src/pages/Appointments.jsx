@@ -147,9 +147,14 @@ const Appointments = () => {
       {/* Header */}
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            Janji Temu Saya
-          </h1>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              Janji Temu Saya
+            </h1>
+            <p className="text-gray-500">
+              Kelola janji temu untuk hewan peliharaan Anda
+            </p>
+          </div>
           <Link
             to="/appointments/new"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all"

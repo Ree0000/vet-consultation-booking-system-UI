@@ -35,8 +35,8 @@ const AdminLayout = ({ children }) => {
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
                 <Heart size={22} className="text-blue-600" fill="currentColor" />
               </div>
-              <div className="hidden sm:block">
-                <span className="text-xl font-bold text-white">Urban Animal Vet</span>
+              <div className="sm:block">
+                <span className="text-xl font-bold text-white">Urban Animal</span>
                 <div className="flex items-center gap-1 text-xs text-blue-100">
                   <Shield size={12} />
                   <span>Admin Panel</span>
