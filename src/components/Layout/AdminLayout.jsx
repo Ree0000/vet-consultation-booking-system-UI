@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Heart, LayoutDashboard, Calendar, Users, Stethoscope, LogOut, Menu, X, Shield } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import Footer from './Footer';
+import logoImage from '../../assets/images/urban-animal-logo(transparent).png';
 
 const AdminLayout = ({ children }) => {
   const { user, logout } = useAuth();
@@ -32,8 +33,12 @@ const AdminLayout = ({ children }) => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/admin/dashboard" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                <Heart size={22} className="text-blue-600" fill="currentColor" />
+              <div className="w-10 h-10 flex items-center justify-center">
+                <img
+                  src={logoImage}
+                  alt="Urban Animal Logo"
+                  className="w-[40px] h-[40px] object-contain rounded-2xl"
+                />
               </div>
               <div className="sm:block">
                 <span className="text-xl font-bold text-white">Urban Animal</span>

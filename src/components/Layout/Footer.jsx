@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart, Facebook, Instagram, Twitter, Mail, MapPin, Phone } from 'lucide-react';
+import logoImage from '../../assets/images/urban-animal-logo(transparent).png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,8 +19,12 @@ const Footer = () => {
           {/* Brand & Address */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                <Heart size={18} className="text-white" fill="white" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+                <img
+                  src={logoImage}
+                  alt="Urban Animal Logo"
+                  className="w-[40px] h-[40px] object-contain"
+                />
               </div>
               <span className="text-lg font-bold text-gray-800">Urban Animal</span>
             </div>

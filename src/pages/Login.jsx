@@ -4,6 +4,7 @@ import { Heart, Mail, Lock, User, Phone, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { showToast } from '../components/Layout/Toast';
 import SimpleFooter from '../components/Layout/SimpleFooter';
+import logoImage from '../assets/images/urban-animal-logo(transparent).png';
 
 const Login = () => {
   const { login, register, isAuthenticated } = useAuth();
@@ -74,12 +75,29 @@ const Login = () => {
       <div className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           {/* Header */}
+          {/* <div className="text-center mb-8"> */}
+          {/*   <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl mb-4 shadow-lg"> */}
+          {/*     <Heart size={40} className="text-white" fill="white" /> */}
+          {/*   </div> */}
+          {/*   <h1 className="text-4xl font-bold text-gray-800 mb-2">Klinik Urban Animal</h1> */}
+          {/*   <p className="text-gray-500">Perawatan untuk hewan peliharaan kesayangan Anda</p> */}
+          {/* </div> */}
+
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl mb-4 shadow-lg">
-              <Heart size={40} className="text-white" fill="white" />
+            <div className="flex flex-col items-center pt-6">
+              <img
+                src={logoImage}
+                alt="Urban Animal Logo"
+                className=" max-w-[180px] sm:max-w-[160px] h-auto object-contain"
+              />
             </div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">Klinik Urban Animal</h1>
-            <p className="text-gray-500">Perawatan untuk hewan peliharaan kesayangan Anda</p>
+
+            <h1 className="mt-4 text-xl font-semibold text-gray-800">
+              Klinik Urban Animal
+            </h1>
+            <p className="text-sm text-gray-500">
+              Perawatan untuk hewan peliharaan kesayangan Anda
+            </p>
           </div>
 
           {/* Kartu Formulir */}
