@@ -1,20 +1,9 @@
 import axios from 'axios';
 
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-//
-// // Create axios instance
-// const adminApi = axios.create({
-//   baseURL: `${API_URL}/admin`,
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// });
-
 const API_URL = '/api';
 
 // Create axios instance
 const adminApi = axios.create({
-  // baseURL: API_URL,
   baseURL: `${API_URL}/admin`,
   headers: {
     'Content-Type': 'application/json',
@@ -54,6 +43,10 @@ export const adminAppointmentsAPI = {
   getAll: (params) => adminApi.get('/appointments', { params }),
   getStats: () => adminApi.get('/appointments/stats'),
   updateStatus: (id, status) => adminApi.put(`/appointments/${id}/status`, { status }),
+  // New endpoints for manual booking
+  getAvailableSlots: (date, vetId) => adminApi.get('/appointments/available-slots', { params: { date, vetId } }),
+  createManual: (data) => adminApi.post('/appointments/manual', data),
+  deleteManual: (id) => adminApi.delete(`/appointments/manual/${id}`),
 };
 
 // Admin Veterinarians API
